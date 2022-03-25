@@ -55,7 +55,7 @@ class ExportCSV extends Command
             if($response->successful()) {
                 $this->info("Total assets are " . $response->json('total_count'));
                 $filename = $this->option('filename') ?? 'export.csv';
-                Storage::disk('local')->prepend($filename, "webdam_id", "widen_id");
+                Storage::disk('local')->prepend($filename, '"webdam_id", "widen_id"');
             }
         }
         if($response->successful()) {
