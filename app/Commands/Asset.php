@@ -38,31 +38,24 @@ class Asset extends Command
         if($response->failed()) {
             return $this->error("Asset not found.");
         }
-        $row = "";
         $data = $response->json();
+        $rows = [
+            ['id', $data['id']],
+            ['external_id', $data['external_id']],
+            ['filename', $data['filename']],
+            ['created_date', $data['created_date']],
+            ['last_update_date', $data['last_update_date']],
+            ['file_upload_date', $data['file_upload_date']],
+            ['deleted_date', $data['deleted_date']],
+            ['released_and_not_expired', $data['released_and_not_expired']],
+        ];
         foreach($data['metadata']['fields'] as $key => $value) {
             $value = implode(',', $value);
-            $row .= "<tr><td>{$key}</td><td>{$value}</td></tr>";
+            $rows[] = [$key,$value];
         }
-        render(<<<HTML
-                <table>
-                <thead>
-                    <tr>
-                        <th>Key</th>
-                        <th>Value</th>
-                    </tr>
-                </thead>
-                <tr><td>id</td><td>{$data['id']}</td></tr>
-                <tr><td>external_id</td><td>{$data['external_id']}</td></tr>
-                <tr><td>filename</td><td>{$data['filename']}</td></tr>
-                <tr><td>created_date</td><td>{$data['created_date']}</td></tr>
-                <tr><td>last_update_date</td><td>{$data['last_update_date']}</td></tr>
-                <tr><td>file_upload_date</td><td>{$data['file_upload_date']}</td></tr>
-                <tr><td>deleted_date</td><td>{$data['deleted_date']}</td></tr>
-                <tr><td>released_and_not_expired</td><td>{$data['released_and_not_expired']}</td></tr>
-                {$row}
-            </table>
-        HTML);
+        $this->table(['Key', 'Value'],
+            $rows
+        );
     }
 
 }
