@@ -55,13 +55,14 @@ class ExportCSV extends Command
             if($response->successful()) {
                 $this->info("Total assets are " . $response->json('total_count'));
                 $filename = $this->option('filename') ?? 'export.csv';
-                Storage::disk('local')->prepend($filename, '"webdam_id", "widen_id"');
+                Storage::disk('local')->prepend($filename, 'webdam_id,widen_id');
             }
         }
         if($response->successful()) {
-            $this->task("[$page] Writing assets ... ", $this->parseAsset($response->json('items')));
-            if($response->json('scroll_id') && !empty($response->json('items'))) {
-                $this->loadAssets($response->json('scroll_id'), ++$page);
+            $data = $response->json();
+            $this->task("[$page] Writing assets ... ", $this->parseAsset($data['items']));
+            if($data['scroll_id'] && !empty($data['items'])) {
+                $this->loadAssets($data['scroll_id'], ++$page);
             }
             else {
                 $this->task("All assets are exported.");
@@ -72,7 +73,7 @@ class ExportCSV extends Command
     public function parseAsset($assets) {
         foreach($assets as $asset) {
             if (!empty($asset['metadata']['fields']['webdam_id'])) {
-                $this->writeToFile($asset['metadata']['fields']['webdam_id'][0] . "," . $asset['id'], "\n");
+                $this->writeToFile($asset['metadata']['fields']['webdam_id'][0] . "," . $asset['id']);
             }
         }
     }
