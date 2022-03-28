@@ -13,6 +13,11 @@ This is a command-line tool that generates a CSV with of a list of assets from t
    $ cd widen-cli
    $ composer install
    ```
+3. Compile the final build file (this is the standalone executable you will use)
+   ```shell
+   $ php widen-cli app:build
+   ```
+4. Move the final build file to your desired location
 
 ## Usage:
 Note: If you want to run the below commands in a different directory than `widen-cli/`, replace `./widen-cli` with the path to the `widen-cli` executable (e.g., `/Users/jane.doe/Sandboxes/widen-cli/widen-cli export:csv`)
