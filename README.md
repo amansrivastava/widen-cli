@@ -4,6 +4,13 @@ This is a command-line tool that generates a CSV with of a list of assets from t
 
 ## Installation
 
+To quickly install this tool, follow the below steps:
+
+1. Download the binary file called `widen-cli` from the latest release: https://github.com/amansrivastava/widen-cli/releases
+2. Move the binary file to your desired location
+
+Alternatively, if you want to build your own binary file from the source code, you can follow the below steps instead:
+
 1. Clone this repository
    ```shell
    $ git clone git@github.com:amansrivastava/widen-cli.git
