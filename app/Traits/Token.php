@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Http;
+
 trait Token
 {
     protected string $token;
@@ -17,5 +19,20 @@ trait Token
             $this->token = $this->secret('Enter Widen auth token');
         }
         return $this->token;
+    }
+
+    public function checkConnection() {
+        $headers = [
+            'authorization' => 'Bearer ' . $this->token
+        ];
+        $this->client = Http::widen()->withHeaders($headers);
+        $response = $this->client->get('/user');
+        if($response->successful()) {
+            $this->info("Successfully connected to Widen.");
+            return $this->client;
+        }
+        else {
+            $this->error("Failed to connect to Widen.");
+        }
     }
 }

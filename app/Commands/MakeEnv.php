@@ -29,6 +29,10 @@ class MakeEnv extends Command
      */
     public function handle()
     {
+        if(Storage::exists('.env')) {
+            $this->info(".env file already exists.");
+            return;
+        }
         Storage::put('.env', "TOKEN=");
     }
 }

@@ -17,7 +17,7 @@ class ExportCSV extends Command
      *
      * @var string
      */
-    protected $signature = 'export:csv {--token : Widen authentication Token.} {--f|filename= : Filename of the output file.}';
+    protected $signature = 'export:csv {--token= : Widen authentication Token.} {--f|filename= : Filename of the output file.}';
 
     /**
      * The description of the command.
@@ -90,8 +90,7 @@ class ExportCSV extends Command
             $this->task("[$page] Writing " . $collection->count() . " assets to file ... ");
             $collection->each(function ($item) {
                     $data = $item['metadata']['fields']['webdam_id'][0] . "," . $item['id'];
-                    $this->addToFile($data);
-                    Storage::disk('local')->append($this->filename, $data);
+                    $this->addToFile($data, $this->filename);
             });
             if($data['scroll_id'] && $collection->isNotEmpty()) {
                 $this->loadAssets($data['scroll_id'], ++$page);
