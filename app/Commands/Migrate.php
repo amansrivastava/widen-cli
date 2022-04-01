@@ -80,6 +80,7 @@ class Migrate extends Command
             $file = "export" . rand(4,6) . ".csv";
             $this->call('export:webdam-mapping', ['--token' => $token, '-f' => $file]);
             $import = Process::fromShellCommandline('drush acquiadam:update ' . getcwd() . DIRECTORY_SEPARATOR . $file);
+            $import->run();
         });
 
         $this->task('Optional media sync.', function() {
