@@ -13,15 +13,15 @@ trait Exportable
      */
     protected string $filename;
 
-    public function getFileName() {
-        $this->filename = $this->option('filename') ?? 'export.csv';
+    public function getFileName($filename = 'export.csv') {
+        $this->filename = $this->option('filename') ?? $filename;
     }
 
-    public function addHeaderToFile($data) {
-        Storage::put($this->filename, $data);
+    public function addHeaderToFile($data, $filename) {
+        Storage::disk('local')->put($filename, $data);
     }
 
-    public function addToFile($data) {
-        Storage::append($this->filename, $data);
+    public function addToFile($data, $filename) {
+        Storage::disk('local')->append($filename, $data);
     }
 }
