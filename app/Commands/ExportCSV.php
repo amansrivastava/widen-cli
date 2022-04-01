@@ -2,18 +2,22 @@
 
 namespace App\Commands;
 
+use App\Traits\Exportable;
+use App\Traits\Token;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Illuminate\Support\Facades\Storage;
 
 class ExportCSV extends Command
 {
+    use Exportable, Token;
+
     /**
      * The signature of the command.
      *
      * @var string
      */
-    protected $signature = 'export:csv {token : Widen authentication Token.}{--f|filename= : Filename of the output file.}';
+    protected $signature = 'export:csv {--token : Widen authentication Token.} {--f|filename= : Filename of the output file.}';
 
     /**
      * The description of the command.
@@ -27,12 +31,6 @@ class ExportCSV extends Command
      */
     protected $client;
 
-    /**
-     * Output filename.
-     *
-     * @var string
-     */
-    protected $filename;
 
     /**
      * Search options.
@@ -55,12 +53,13 @@ class ExportCSV extends Command
      */
     public function handle()
     {
+        $this->getToken();
         $headers = [
-            'authorization' => 'Bearer ' . $this->argument('token')
+            'authorization' => 'Bearer ' . $this->token
         ];
         $this->client = Http::widen()->withHeaders($headers);
         $connect = $this->client->get('/user');
-        $this->filename = $this->option('filename') ?? 'export.csv';
+        $this->getFileName();
         if($connect->successful()) {
             $this->info("Successfully connected to Widen.");
             $this->loadAssets();
@@ -91,6 +90,7 @@ class ExportCSV extends Command
             $this->task("[$page] Writing " . $collection->count() . " assets to file ... ");
             $collection->each(function ($item) {
                     $data = $item['metadata']['fields']['webdam_id'][0] . "," . $item['id'];
+                    $this->addToFile($data);
                     Storage::disk('local')->append($this->filename, $data);
             });
             if($data['scroll_id'] && $collection->isNotEmpty()) {
