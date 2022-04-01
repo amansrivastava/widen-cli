@@ -28,16 +28,17 @@ Alternatively, if you want to build your own binary file from the source code, y
 
 ## Usage:
 Note: If you want to run the below commands in a different directory than `widen-cli/`, replace `./widen-cli` with the path to the `widen-cli` executable (e.g., `/Users/jane.doe/Sandboxes/widen-cli/widen-cli export:csv`)
+It will prompt for Widen auth token.
 
 ### Export CSV:
 ```shell
-$ ./widen-cli export:csv [TOKEN]
+$ ./widen-cli export:csv
 ```
 
 By default, this will export to a CSV named `export.csv`. To generate a CSV with a different file name, you can run the command below:
 
 ```shell
-$ ./widen-cli export:csv [TOKEN] -f [my-file-name].csv
+$ ./widen-cli export:csv -f [my-file-name].csv
 ```
 ### View Asset:
 ```shell
