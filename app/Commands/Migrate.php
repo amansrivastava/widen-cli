@@ -50,7 +50,6 @@ class Migrate extends Command
         }
 
         $this->task('Upgrade drupal/media_acquiadam', function() {
-            return;
             $composer = $this->choice('Composer version', ['composer', 'composer1'], '0');
             $process = Process::fromShellCommandline($composer . ' require drupal/media_acquiadam:^2 -o -n');
             $status = $process->run();
@@ -63,7 +62,6 @@ class Migrate extends Command
         });
 
         $this->task('Update database', function() {
-            return;
             $process = Process::fromShellCommandline('drush updb -y');
             $status = $process->run();
             if($status === 0) {
@@ -73,7 +71,6 @@ class Migrate extends Command
         });
 
         $this->task('Configure module.', function() {
-            return;
             Process::fromShellCommandline('drush cr')->run();
             Process::fromShellCommandline('drush config:set media_acquiadam.settings token ' . $this->token . ' -y ')->run();
             // @TODO: Make domain value configurable, like token.
@@ -86,7 +83,6 @@ class Migrate extends Command
         });
 
         $this->task('Migrate media.', function() {
-            return;
             $file = "export" . rand(4,6) . ".csv";
             $this->call('export:webdam-mapping', ['-f' => $file]);
             $import = Process::fromShellCommandline('drush acquiadam:update ' . getcwd() . DIRECTORY_SEPARATOR . $file);
