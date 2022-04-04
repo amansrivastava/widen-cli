@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f862088c72b0fb72c431400aed7a948f",
+    "content-hash": "180d570185fe31ed11e7e702328a1e80",
     "packages": [
         {
             "name": "box/spout",
@@ -79,6 +79,76 @@
                 "source": "https://github.com/box/spout/tree/v3.3.0"
             },
             "time": "2021-05-14T21:18:09+00:00"
+        },
+        {
+            "name": "cpliakas/git-wrapper",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cpliakas/git-wrapper.git",
+                "reference": "c2c874237039200659f28d589a8d92a9b0867003"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cpliakas/git-wrapper/zipball/c2c874237039200659f28d589a8d92a9b0867003",
+                "reference": "c2c874237039200659f28d589a8d92a9b0867003",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "^3.0",
+                "php": ">=7.3",
+                "symfony/event-dispatcher": "^4.4|^5.1",
+                "symfony/process": "^4.4|^5.1"
+            },
+            "require-dev": {
+                "ondram/ci-detector": "^3.5",
+                "phpstan/phpstan": "^0.12.64",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpunit/phpunit": "^9.5",
+                "psr/log": "^1.1",
+                "rector/rector": "^0.9",
+                "symfony/filesystem": "^4.4|^5.1",
+                "symplify/changelog-linker": "^9.0",
+                "symplify/easy-coding-standard": "^9.0",
+                "symplify/phpstan-extensions": "^9.0",
+                "symplify/phpstan-rules": "^9.0",
+                "tracy/tracy": "^2.7"
+            },
+            "suggest": {
+                "monolog/monolog": "Enables logging of executed git commands"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GitWrapper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Pliakas",
+                    "email": "opensource@chrispliakas.com"
+                },
+                {
+                    "name": "Tomas Votruba",
+                    "email": "tomas.vot@gmail.com"
+                }
+            ],
+            "description": "A PHP wrapper around the Git command line utility.",
+            "keywords": [
+                "cli",
+                "git",
+                "git wrapper"
+            ],
+            "support": {
+                "issues": "https://github.com/cpliakas/git-wrapper/issues",
+                "source": "https://github.com/cpliakas/git-wrapper/tree/3.1.0"
+            },
+            "abandoned": "symplify/git-wrapper",
+            "time": "2021-01-03T12:20:31+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -981,6 +1051,91 @@
                 }
             ],
             "time": "2022-02-13T18:13:33+00:00"
+        },
+        {
+            "name": "nette/utils",
+            "version": "v3.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/utils.git",
+                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/utils/zipball/0af4e3de4df9f1543534beab255ccf459e7a2c99",
+                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2 <8.2"
+            },
+            "conflict": {
+                "nette/di": "<3.0.6"
+            },
+            "require-dev": {
+                "nette/tester": "~2.0",
+                "phpstan/phpstan": "^1.0",
+                "tracy/tracy": "^2.3"
+            },
+            "suggest": {
+                "ext-gd": "to use Image",
+                "ext-iconv": "to use Strings::webalize(), toAscii(), chr() and reverse()",
+                "ext-intl": "to use Strings::webalize(), toAscii(), normalize() and compare()",
+                "ext-json": "to use Nette\\Utils\\Json",
+                "ext-mbstring": "to use Strings::lower() etc...",
+                "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()",
+                "ext-xml": "to use Strings::length() etc. when mbstring is not available"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0-only",
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "🛠  Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
+            "homepage": "https://nette.org",
+            "keywords": [
+                "array",
+                "core",
+                "datetime",
+                "images",
+                "json",
+                "nette",
+                "paginator",
+                "password",
+                "slugify",
+                "string",
+                "unicode",
+                "utf-8",
+                "utility",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/nette/utils/issues",
+                "source": "https://github.com/nette/utils/tree/v3.2.7"
+            },
+            "time": "2022-01-24T11:29:14+00:00"
         },
         {
             "name": "psr/container",
@@ -2651,6 +2806,68 @@
                 }
             ],
             "time": "2022-03-04T08:16:47+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v5.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "95440409896f90a5f85db07a32b517ecec17fa4c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/95440409896f90a5f85db07a32b517ecec17fa4c",
+                "reference": "95440409896f90a5f85db07a32b517ecec17fa4c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-php80": "^1.16"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Executes commands in sub-processes",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/process/tree/v5.4.5"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-01-30T18:16:22+00:00"
         },
         {
             "name": "symfony/translation",
@@ -7082,68 +7299,6 @@
                 }
             ],
             "time": "2021-09-13T13:58:11+00:00"
-        },
-        {
-            "name": "symfony/process",
-            "version": "v5.4.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "95440409896f90a5f85db07a32b517ecec17fa4c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/95440409896f90a5f85db07a32b517ecec17fa4c",
-                "reference": "95440409896f90a5f85db07a32b517ecec17fa4c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-php80": "^1.16"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Executes commands in sub-processes",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/process/tree/v5.4.5"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-01-30T18:16:22+00:00"
         },
         {
             "name": "symfony/service-contracts",
