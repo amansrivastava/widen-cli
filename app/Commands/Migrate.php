@@ -19,7 +19,7 @@ class Migrate extends Command
      *
      * @var string
      */
-    protected $signature = 'migrate {--token= : Widen Authentication token.}';
+    protected $signature = 'migrate {--token= : Widen Authentication token.} {--domain= : Domain value.}';
 
     /**
      * Domain value
