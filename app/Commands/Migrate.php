@@ -3,7 +3,6 @@
 namespace App\Commands;
 
 use App\Traits\Token;
-use GitWrapper\GitCommand;
 use GitWrapper\GitWorkingCopy;
 use Illuminate\Support\Facades\Storage;
 use LaravelZero\Framework\Commands\Command;
@@ -22,6 +21,13 @@ class Migrate extends Command
     protected $signature = 'migrate {--token= : Widen Authentication token.}';
 
     /**
+     * Domain value
+     *
+     * @var string
+     */
+    protected $domain;
+
+    /**
      * The description of the command.
      *
      * @var string
@@ -37,7 +43,6 @@ class Migrate extends Command
     {
         $this->title('AcquiaDAM');
         $this->getToken();
-
         $this->info("Checking available binaries.");
         $this->checkCommand('acli');
         $this->checkCommand('composer');
@@ -74,7 +79,7 @@ class Migrate extends Command
             Process::fromShellCommandline('drush cr')->run();
             Process::fromShellCommandline('drush config:set media_acquiadam.settings token ' . $this->token . ' -y ')->run();
             // @TODO: Make domain value configurable, like token.
-            Process::fromShellCommandline('drush config:set media_acquiadam.settings domain related.widencollective.com -y ')->run();
+            Process::fromShellCommandline('drush config:set media_acquiadam.settings ' . $this->getDomain() . ' -y ')->run();
         });
 
         // @TODO: Re-save media types.
@@ -110,7 +115,8 @@ class Migrate extends Command
         $git = new GitWorkingCopy($gitWrapper, './');
         $this->task('Interactive add to git.', function() use ($git) {
             $status = $git->getStatus();
-            if(!empty($status)) {
+            $flag = $this->confirm("Do you want to add changes to git ?");
+            if(!empty($status) && $flag) {
                 $git_repo_status_arr = Strings::split($status, '#\R#');
                 foreach($git_repo_status_arr as $file) {
                     if(!empty($file)) {
@@ -151,6 +157,11 @@ class Migrate extends Command
         $this->task('Smoke testing.', function() {
             return false;
         });
+
+        $this->task('Cleanup.', function() {
+            // @TODO: Remove generated files.
+            return false;
+        });
     }
 
     public function checkCommand(string $command) {
@@ -161,5 +172,18 @@ class Migrate extends Command
             }
             return false;
         });
+    }
+
+    public function getDomain(): string {
+        if($this->option('domain')) {
+            $this->token = $this->option('domain');
+            $this->info("Domain value loaded from option");
+        } elseif(env('DOMAIN')) {
+            $this->token = env('DOMAIN');
+            $this->info("Domain value loaded from env.");
+        } else {
+            $this->token = $this->secret('Enter Widen domain');
+        }
+        return $this->domain;
     }
 }
