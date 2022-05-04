@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 trait Token
 {
@@ -32,7 +33,7 @@ trait Token
             return $this->client;
         }
         else {
-            $this->error("Failed to connect to Widen.");
+            throw new AccessDeniedHttpException();
         }
     }
 }
