@@ -33,6 +33,6 @@ class MakeEnv extends Command
             $this->info(".env file already exists.");
             return;
         }
-        Storage::put('.env', "TOKEN=");
+        Storage::put('.env', "TOKEN=\nDOMAIN=");
     }
 }
