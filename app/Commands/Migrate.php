@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Traits\Token;
+use GitWrapper\GitCommand;
 use GitWrapper\GitWorkingCopy;
 use Illuminate\Support\Facades\Storage;
 use LaravelZero\Framework\Commands\Command;
@@ -43,6 +44,7 @@ class Migrate extends Command
     {
         $this->title('AcquiaDAM');
         $this->getToken();
+
         $this->info("Checking available binaries.");
         $this->checkCommand('acli');
         $this->checkCommand('composer');
@@ -78,8 +80,8 @@ class Migrate extends Command
         $this->task('Configure module.', function() {
             Process::fromShellCommandline('drush cr')->run();
             Process::fromShellCommandline('drush config:set media_acquiadam.settings token ' . $this->token . ' -y ')->run();
-            // @TODO: Make domain value configurable, like token.
             Process::fromShellCommandline('drush config:set media_acquiadam.settings ' . $this->getDomain() . ' -y ')->run();
+
         });
 
         // @TODO: Re-save media types.
@@ -117,6 +119,7 @@ class Migrate extends Command
             $status = $git->getStatus();
             $flag = $this->confirm("Do you want to add changes to git ?");
             if(!empty($status) && $flag) {
+
                 $git_repo_status_arr = Strings::split($status, '#\R#');
                 foreach($git_repo_status_arr as $file) {
                     if(!empty($file)) {
