@@ -179,13 +179,13 @@ class Migrate extends Command
 
     public function getDomain(): string {
         if($this->option('domain')) {
-            $this->token = $this->option('domain');
+            $this->domain = $this->option('domain');
             $this->info("Domain value loaded from option");
         } elseif(env('DOMAIN')) {
-            $this->token = env('DOMAIN');
+            $this->domain = env('DOMAIN');
             $this->info("Domain value loaded from env.");
         } else {
-            $this->token = $this->secret('Enter Widen domain');
+            $this->domain = $this->secret('Enter Widen domain');
         }
         return $this->domain;
     }
