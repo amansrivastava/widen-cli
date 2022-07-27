@@ -80,7 +80,7 @@ class Migrate extends Command
         $this->task('Configure module.', function() {
             Process::fromShellCommandline('drush cr')->run();
             Process::fromShellCommandline('drush config:set media_acquiadam.settings token ' . $this->token . ' -y ')->run();
-            Process::fromShellCommandline('drush config:set media_acquiadam.settings ' . $this->getDomain() . ' -y ')->run();
+            Process::fromShellCommandline('drush config:set media_acquiadam.settings domain ' . $this->getDomain() . ' -y ')->run();
 
         });
 
@@ -97,15 +97,12 @@ class Migrate extends Command
         });
 
         $this->task('[Optional] media sync.', function() {
-            $flag = $this->confirm("Do you want to run media sync? (It will take time)", false);
+            $flag = $this->confirm("Do you want to run media sync? (It will take time)");
             if($flag == TRUE) {
                 Process::fromShellCommandline('drush acquiadam:sync --method=all')->run();
                 Process::fromShellCommandline('drush queue:run media_acquiadam_asset_refresh')->run();
-                return $flag;
             }
-            else {
-                return $flag;
-            }
+            return $flag;
         });
 
         $this->task('Export Config.', function() {
@@ -117,7 +114,7 @@ class Migrate extends Command
         $git = new GitWorkingCopy($gitWrapper, './');
         $this->task('Interactive add to git.', function() use ($git) {
             $status = $git->getStatus();
-            $flag = $this->confirm("Do you want to add changes to git ?");
+            $flag = $this->confirm("Do you want to add changes to git (not recommened for Acquia git))?");
             if(!empty($status) && $flag) {
 
                 $git_repo_status_arr = Strings::split($status, '#\R#');

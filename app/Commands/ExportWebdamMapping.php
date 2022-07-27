@@ -68,8 +68,10 @@ class ExportWebdamMapping extends Command
                 $assets = $this->getAssets($query);
                 $collection = collect($assets);
                 $collection->each(function ($item) {
-                    $data = $item['metadata']['fields']['webdam_id'][0] . "," . $item['id'];
-                    $this->addToFile($data, $this->filename);
+                    if(isset($item['metadata']['fields']['webdam_id'][0])) {
+                        $data = $item['metadata']['fields']['webdam_id'][0] . "," . $item['id'];
+                        $this->addToFile($data, $this->filename);
+                    }
                 });
             });
     }
